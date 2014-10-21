@@ -1,0 +1,7 @@
+{
+  "ScreenWidth": 1024,
+  "ScreenHeight": 768,
+  "Fullscreen": false,
+  "VSync": true,
+  "FramerateLimit": 30
+}
