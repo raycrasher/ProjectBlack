@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectBlack.Inventory
+namespace ProjectBlack.Terrain
 {
-    public class ArmorComponent : Component
+    public class ArmorPlatingComponent
     {
     }
 }

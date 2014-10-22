@@ -66,6 +66,11 @@
     <Compile Include="Buildings\BuildingComponent.cs" />
     <Compile Include="CharacterComponent.cs" />
     <Compile Include="Component.cs" />
+    <Compile Include="Mechanics\HeatComponent.cs" />
+    <Compile Include="Physics\ColliderComponent.cs" />
+    <Compile Include="Physics\RigidBodyComponent.cs" />
+    <Compile Include="Terrain\ArmorPlatingComponent.cs" />
+    <Compile Include="Terrain\BatteryComponent.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="Graphics.cs" />
@@ -76,14 +81,18 @@
     <Compile Include="PlayerComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TerrainComponent.cs" />
+    <Compile Include="Terrain\FluidContainerComponent.cs" />
+    <Compile Include="Terrain\TerrainObjectComponent.cs" />
     <Compile Include="Tile.cs" />
     <Compile Include="TileMap.cs" />
     <Compile Include="TileMapComponent.cs" />
     <Compile Include="TileMapRendererComponent.cs" />
     <Compile Include="TileType.cs" />
+    <Compile Include="TransformComponent.cs" />
     <Compile Include="Utilities\AnimatedSprite.cs" />
     <Compile Include="Utilities\CircularEnumerator.cs" />
     <Compile Include="Utilities\CircularList.cs" />
+    <Compile Include="Utilities\FloatStat.cs" />
     <Compile Include="Utilities\MapRenderer.cs" />
     <Compile Include="Utilities\Util.cs" />
     <Compile Include="Utilities\Coroutine.cs" />
@@ -91,7 +100,12 @@
     <Compile Include="Utilities\SpriteBatch.cs" />
     <Compile Include="Utilities\UtilityExtensions.cs" />
     <Compile Include="Vector.cs" />
+    <Compile Include="Terrain\AlternatorComponent.cs" />
+    <Compile Include="Vehicles\VehicleArmorComponent.cs" />
     <Compile Include="Vehicles\VehicleComponent.cs" />
+    <Compile Include="Vehicles\VehicleControlComponent.cs" />
+    <Compile Include="Vehicles\VehicleEngineComponent.cs" />
+    <Compile Include="Vehicles\VehicleWeaponMountComponent.cs" />
     <Compile Include="World.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -113,6 +127,7 @@
     <Content Include="openal32.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Notes.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scenes\Loading\" />

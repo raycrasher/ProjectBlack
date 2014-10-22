@@ -76,5 +76,18 @@ namespace ProjectBlack
             return new Vector2(v.X * Game.PhysicsScale, v.Y * Game.PhysicsScale);
         }
 
+        public static Vector2f ToSfml(this Vector2 v)
+        {
+            return new Vector2f(v.X / Game.PhysicsScale, v.Y / Game.PhysicsScale);
+        }
+
+        public static float ToRadians(this float degrees) {
+            return degrees * 0.0174532925f;
+        }
+
+        public static float ToDegrees(this float radians)
+        {
+            return radians * 57.2957795f;
+        }
     }
 }

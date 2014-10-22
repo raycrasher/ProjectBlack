@@ -1,0 +1,209 @@
+﻿Character Stats:
+	Range is 1-100. Normal value is 40-60.
+
+	Strength
+		Affects melee damage, carry weight, construction speed (40%)
+	Agility
+		Affects move speed, melee attack speed (60%).
+	Dexterity
+		Affects accuracy, melee attack speed (40%), ranged attack speed (50%), reload speed, fabrication speed, construction speed (60%)
+	Wisdom
+		Affects learning speed (70%), speech/barter/trade interactions, morale.
+	Intelligence
+		Affects learning speed (30%), reading speed.
+	Perception
+		Affects detection of objects through sight, hearing, scent or feel, ranged attack speed (50%), ranged accuracy.
+	Luck
+		Affects critical rate, critical damage, and many other things.
+
+
+------------------------
+Enemies
+
+
+walker
+	attacks
+		bite
+		swipe
+	defenses
+		clothing (random)
+	strengths:
+		vast numbers
+		no pain
+		no fear
+	weaknesses:
+		slow
+		stupid
+		many ways to kill
+	elite (shambler)
+		strong sense of hearing / vibration
+		can climb
+		attacks have a medium chance of dealing infecting wounds
+		armored clothing
+		faster
+	elite (master)
+		equipped with great armor and equipment
+		uses weapon / items
+---------------------------------------------------------------
+brute
+	attacks
+		swipe
+		bash
+		stomp
+	defenses
+		armored hide
+		quick wound healing
+	strengths
+		very strong
+		destroys terrain
+	elite (tank)
+		resistance to criticals (not immunity)
+		fast tackle attack
+		heavy armored clothing
+	elite (titan)
+		BIG.
+		immune to weak attacks
+	rewards
+		
+---------------------------------------------------------------				
+runner
+	attacks
+		bite
+		swipe
+		dashing swipe
+		dashing bite
+	defenses
+		medium evasion	
+	strengths
+		FAST
+	weaknesses
+		traps, attacks with high accuracy against moving targets
+		stumbles / slows down in rough terrain
+		cannot climb
+	elite (sprinter)
+		does not stumble or slow down in rough terrain
+		more speed
+		armored clothing
+---------------------------------------------------------------
+hunter
+	attacks
+		bite
+		swipe
+		leap
+	defenses
+		high evasion
+	strengths
+		smart
+		fast
+		can leap up/down z levels
+	weaknesses
+		traps
+		melee
+	elite (headhunter)
+		senses stealth
+		basic trap avoidance
+		armored clothing
+	elite (assassin)
+		more speed
+		more evasion
+		stealth
+---------------------------------------------------------------
+shocker
+	attack
+		electric shock
+	weaknesses
+		rubber / electric resistant clothing
+	elite (storm zombie)
+		constantly emits static at nearby objects (aura effect)
+	elite (lightning zombie)
+		super strong electric attack
+---------------------------------------------------------------
+flamer
+	attack
+		stream of fire
+	weaknesses
+		water disables temporarily - generates clouds of hot steam
+	elite (hell zombie)
+		blast of fire
+	elite (inferno zombie)
+		burns everything around it (aura effect)
+---------------------------------------------------------------
+brat
+---------------------------------------------------------------
+shrieker
+	attack
+		shriek
+		slash
+		bite
+	strengths
+		shriek attracts zombies
+	elite (sonic shrieker)
+		shriek deals damage
+---------------------------------------------------------------
+bomb
+	attack
+		suicide boom
+	weaknesses
+		precise shot at the back of the head
+	elite (acid bomb zombie)
+		liquid attack is corrosive
+		massive acid splash when it explodes
+	elite (fire bomb zombie)
+		liquid attack is flammable
+		explodes into fire
+	elite (bio bomb zombie)
+		multiple variants - 1 per disease
+		liquid attack is infectious
+		explodes into an infectious disease-filled gas		
+	elite (nuke zombie)
+		deals radiation damage on nearby objects
+		"small" nuclear explosion
+---------------------------------------------------------------
+smoker
+	attacks
+		smoke attack
+		constantly emits smoke
+	defenses
+		hiding in smoke
+	weaknesses
+		slow
+		infrared vision and gas masks
+	elite (acid smoker)
+		smoke is corrosive
+	elite (gas smoker)
+		smoke ignites when exposed to fire
+---------------------------------------------------------------
+grabber
+	attack
+		grab (short range, with tongue)
+		bite
+		slash
+		
+	elite(lasher)
+		long range grab
+---------------------------------------------------------------
+necromancer
+	attack
+		strike with held item
+	strength
+		raises up zombies (one per spell)
+	weaknesses
+		headshots
+		melee attacks
+	elite (lich)
+		raises up multiple zombies with one spell
+	elite (warlock)
+		has great weapon and equipment (sword, armor, gun)
+		fast
+		uses ranged and melee attacks, depending on weapon
+---------------------------------------------------------------
+demon
+---------------------------------------------------------------
+succubus
+---------------------------------------------------------------
+alien (grey)
+---------------------------------------------------------------
+alien (squid)
+---------------------------------------------------------------
+alien (wisp)
+
