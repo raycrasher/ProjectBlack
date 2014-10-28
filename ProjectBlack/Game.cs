@@ -19,6 +19,8 @@ namespace ProjectBlack
             System.IO.Directory.SetCurrentDirectory("..\\..\\..");
             Graphics.Initialize();
             Graphics.RenderWindow.Closed += (o,e) => Quit();
+
+            UI.Initialize();
         }
 
         public static Coroutine StartCoroutine(IEnumerable routine) {
@@ -93,6 +95,7 @@ namespace ProjectBlack
         private static bool _exitGame = false;
         private static LinkedList<Coroutine> Coroutines = new LinkedList<Coroutine>();
         public static float PhysicsScale = 0.01f;
+        public static SFML.Graphics.RenderWindow RenderWindow { get { return Graphics.RenderWindow; } }
 
 
     }

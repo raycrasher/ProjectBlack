@@ -44,10 +44,14 @@ namespace ProjectBlack
             JsonUtilities.WriteJson(Settings, "GraphicsSettings.json");
 
             var mode = new SFML.Window.VideoMode(Settings.ScreenWidth, Settings.ScreenHeight, 32);
-
+            
             RenderWindow = new RenderWindow(mode, "project/Black",
                 Settings.Fullscreen ? SFML.Window.Styles.Fullscreen : SFML.Window.Styles.Default
                 );
+
+
+            OpenTK.Toolkit.Init();
+            var context = new OpenTK.Graphics.GraphicsContext(new OpenTK.ContextHandle(IntPtr.Zero), null);
 
             RenderWindow.SetVerticalSyncEnabled(Settings.VSync);
             RenderWindow.SetFramerateLimit(Settings.FramerateLimit);

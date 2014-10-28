@@ -54,8 +54,8 @@ namespace ProjectBlack
         public FloatStat BreathRate;
         public FloatStat Morale;
         public FloatStat MoraleRate;
-        public FloatStat Breath;
-        public FloatStat BreathRate;
+        public FloatStat Sanity;
+        public FloatStat SanityRate;
 
 #endregion
         public override void Start()
