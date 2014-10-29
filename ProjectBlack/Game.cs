@@ -33,7 +33,8 @@ namespace ProjectBlack
 
         static void Main(string[] args) {
             Initialize();
-            
+
+            Scenes.MainMenuScene.Run();
 
             GameLoop();
         }

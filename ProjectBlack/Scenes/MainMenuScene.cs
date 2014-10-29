@@ -11,7 +11,7 @@ namespace ProjectBlack.Scenes
         public static LibRocketNet.ElementDocument Document { get; private set; }
 
         public static void Run() { 
-            Document = UI.MainContext.CreateDocument("Data/MainMenu/MainMenu.xml");
+            Document = UI.MainContext.LoadDocument("Data/MainMenu/MainMenu.xml");
             Document.Show();
         }
     }

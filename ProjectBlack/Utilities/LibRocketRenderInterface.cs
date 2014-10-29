@@ -83,6 +83,7 @@ namespace ProjectBlack.Utilities
             var texture = new SFML.Graphics.Texture(image);
             texture_handle = new IntPtr(texture.GetHashCode());
             Textures[texture_handle] = texture;
+            texture.Smooth = true;
             image.Dispose();
             return true;
         }
@@ -96,7 +97,9 @@ namespace ProjectBlack.Utilities
             {
                 var texture = new SFML.Graphics.Texture(source);
                 texture_handle = new IntPtr(texture.GetHashCode());
+                texture_dimensions = new LibRocketNet.Vector2i((int)texture.Size.X, (int)texture.Size.Y);
                 Textures[texture_handle] = texture;
+                texture.Smooth = true;
             }
             catch (SFML.LoadingFailedException) {
                 return false;

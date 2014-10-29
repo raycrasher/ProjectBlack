@@ -1,12 +1,21 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<rml>
+﻿<rml>
   <head>
-    <link type="text/rcss" href="MainMenu.css"/>
+    <link type="text/rcss" href="MainMenu.css" />
     <title>Main Menu</title>
+		<style>
+			body
+			{
+				font-family: Open Sans;
+				color: #FFFFFFFF;
+				font-size: 15;
+			}
+		</style>	
   </head>
   <body>
 		<div>
 			This is a test
 		</div>
+		<img src="test.jpeg" />
+		<div>asdasdas</div>
   </body>
 </rml>
