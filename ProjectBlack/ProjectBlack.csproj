@@ -80,6 +80,7 @@
     <Compile Include="Mechanics\HeatComponent.cs" />
     <Compile Include="Physics\ColliderComponent.cs" />
     <Compile Include="Physics\RigidBodyComponent.cs" />
+    <Compile Include="Scenes\MainMenuScene.cs" />
     <Compile Include="Terrain\ArmorPlatingComponent.cs" />
     <Compile Include="Terrain\BatteryComponent.cs" />
     <Compile Include="Game.cs" />
@@ -155,7 +156,6 @@
   <ItemGroup>
     <Folder Include="Scenes\Loading\" />
     <Folder Include="Scenes\MainGame\" />
-    <Folder Include="Scenes\MainMenu\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

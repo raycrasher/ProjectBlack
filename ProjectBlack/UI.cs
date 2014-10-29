@@ -6,61 +6,109 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenTK.Graphics.OpenGL;
 
 namespace ProjectBlack
 {
     public static class UI
     {
-        static public LibRocketNet.Context Context;
-
+        static public LibRocketNet.Context MainContext { get; private set; }
+        static public List<SFML.Graphics.Font> Fonts { get; private set; }
 
         static SFML.Graphics.RenderTexture RenderTexture;
         static Utilities.LibRocketRenderInterface RenderInterface;
         static Utilities.LibRocketSystemInterface SystemInterface;
 
         public static void Initialize() {
+            Console.WriteLine("Initializing UI...");
+            if (MainContext != null) return;
+
             RenderTexture = new SFML.Graphics.RenderTexture(Graphics.Settings.ScreenWidth, Graphics.Settings.ScreenHeight);
             RenderInterface = new Utilities.LibRocketRenderInterface(RenderTexture);
+
+            RenderInterface.UseVbo = false;
+
             SystemInterface = new Utilities.LibRocketSystemInterface();
             LibRocketNet.Core.RenderInterface = RenderInterface;
             LibRocketNet.Core.SystemInterface = SystemInterface;
             LibRocketNet.Core.Initialize();
+            
 
             Game.RenderWindow.KeyPressed += KeyDownHandler;
             Game.RenderWindow.KeyReleased += KeyUpHandler;
             Game.RenderWindow.MouseButtonPressed +=
-                (o, e) => Context.ProcessMouseButtonDown((int)e.Button, GetKeyModifiers());
+                (o, e) => MainContext.ProcessMouseButtonDown((int)e.Button, GetKeyModifiers());
 
             Game.RenderWindow.MouseButtonReleased +=
-                (o, e) => Context.ProcessMouseButtonUp((int)e.Button, GetKeyModifiers());
+                (o, e) => MainContext.ProcessMouseButtonUp((int)e.Button, GetKeyModifiers());
 
-            Game.RenderWindow.MouseWheelMoved += (o, e) => Context.ProcessMouseWheel(-e.Delta, GetKeyModifiers());
+            Game.RenderWindow.MouseWheelMoved += (o, e) => MainContext.ProcessMouseWheel(-e.Delta, GetKeyModifiers());
 
-            Game.RenderWindow.MouseMoved += (o, e) => Context.ProcessMouseMove(e.X, e.Y, GetKeyModifiers());
+            Game.RenderWindow.MouseMoved += (o, e) => MainContext.ProcessMouseMove(e.X, e.Y, GetKeyModifiers());
 
-            Context = LibRocketNet.Core.CreateContext("main", new LibRocketNet.Vector2i((int)Graphics.Settings.ScreenWidth, (int)Graphics.Settings.ScreenHeight));
+
+
+            MainContext = LibRocketNet.Core.CreateContext("main", new LibRocketNet.Vector2i((int)Graphics.Settings.ScreenWidth, (int)Graphics.Settings.ScreenHeight));
+            LibRocketNet.Core.InitDebugger(MainContext);
+
+            LoadFonts();
 
             Game.StartCoroutine(UpdateAndRender());
         }
 
+        private static void LoadFonts()
+        {
+            Fonts = new List<SFML.Graphics.Font>();
+            foreach(var fontfile in System.IO.Directory.GetFiles("Data/Common/Fonts","*.ttf")){
+                Fonts.Add(new SFML.Graphics.Font(fontfile));
+                LibRocketNet.Core.LoadFontFace(fontfile);
+                Console.WriteLine("Loading font \"{0}\"", fontfile);
+            }
+            
+        }
+
         private static void KeyUpHandler(object sender, KeyEventArgs e)
         {
-            Context.ProcessKeyUp(TranslateKey(e.Code), GetKeyModifiers());
+            MainContext.ProcessKeyUp(TranslateKey(e.Code), GetKeyModifiers());
         }
 
         private static void KeyDownHandler(object sender, SFML.Window.KeyEventArgs e)
         {
-            Context.ProcessKeyDown(TranslateKey(e.Code), GetKeyModifiers());
+            if (e.Code == Keyboard.Key.F12 && e.Control == true) { 
+                // ui debug mode
+                LibRocketNet.Core.DebugMode = !LibRocketNet.Core.DebugMode;
+            }
+            MainContext.ProcessKeyDown(TranslateKey(e.Code), GetKeyModifiers());
         }
 
-        public static IEnumerable UpdateAndRender()
+        private static IEnumerable UpdateAndRender()
         {
+            var texSprite = new SFML.Graphics.Sprite(RenderTexture.Texture);
+            RenderTexture.SetActive(true);
+            GL.MatrixMode(MatrixMode.Projection);
+            GL.LoadIdentity();
+            GL.Ortho(0, RenderTexture.Size.X, RenderTexture.Size.Y, 0, -1, 1);
+            GL.Viewport(0, 0, (int)RenderTexture.Size.X, (int)RenderTexture.Size.Y);
             while (true) {
-                Context.Update();
-                Context.Render();
+                RenderTexture.Clear(new SFML.Graphics.Color(0,0,0,0));
+                MainContext.Update();
+                RenderUI();
+                RenderTexture.Display();
+                texSprite.Texture = RenderTexture.Texture;
+                Graphics.RenderWindow.SetActive(true);
+                Graphics.RenderWindow.Draw(texSprite);
+
                 yield return null;
             }
             
+        }
+
+        private static void RenderUI()
+        {
+            RenderTexture.SetActive(true);
+            RenderTexture.PushGLStates();
+            MainContext.Render();
+            RenderTexture.PopGLStates();
         }
 
         private static KeyModifier GetKeyModifiers()

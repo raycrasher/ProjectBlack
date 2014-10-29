@@ -21,9 +21,10 @@ namespace ProjectBlack.Utilities
 
         //public virtual void JoinPath(ref string translatedPath, string documentPath, string path);
         
-        //public virtual bool LogMessage(LogType type, string message) { 
-        //
-        //}
+        public override bool LogMessage(LibRocketNet.LogType type, string message) {
+            Console.WriteLine(message);
+            return true;
+        }
 
         //public virtual int TranslateString(ref string translated, string input) { 
         //

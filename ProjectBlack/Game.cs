@@ -16,7 +16,7 @@ namespace ProjectBlack
         public static TimeSpan DeltaTime { get; private set; }
 
         public static void Initialize() {
-            System.IO.Directory.SetCurrentDirectory("..\\..\\..");
+            System.IO.Directory.SetCurrentDirectory("../../..");
             Graphics.Initialize();
             Graphics.RenderWindow.Closed += (o,e) => Quit();
 
@@ -26,6 +26,7 @@ namespace ProjectBlack
         public static Coroutine StartCoroutine(IEnumerable routine) {
             var r = new Coroutine(routine);
             Coroutines.AddLast(r);
+            r.Resume();
             return r;
             
         }

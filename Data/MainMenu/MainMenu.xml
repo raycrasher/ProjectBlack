@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<rml>
+  <head>
+    <link type="text/rcss" href="MainMenu.css"/>
+    <title>Main Menu</title>
+  </head>
+  <body>
+		<div>
+			This is a test
+		</div>
+  </body>
+</rml>

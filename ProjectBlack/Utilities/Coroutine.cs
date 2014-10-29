@@ -15,12 +15,13 @@ namespace ProjectBlack.Utilities
         public CoroutineStatus Status {get; private set;}
 
         public Coroutine() {
-            Status = CoroutineStatus.Stopped;
+            Status = CoroutineStatus.Paused;
         }
 
         public Coroutine(IEnumerable routine)
         {
             // TODO: Complete member initialization
+            Status = CoroutineStatus.Paused;
             this.Routine = routine.GetEnumerator();
         }
 
@@ -49,6 +50,7 @@ namespace ProjectBlack.Utilities
 
         public bool Run()
         {
+            Status = CoroutineStatus.Playing;
             return Routine.MoveNext();
         }
     }

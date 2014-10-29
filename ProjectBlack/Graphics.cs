@@ -34,6 +34,7 @@ namespace ProjectBlack
 
         public static void Initialize()
         {
+            Console.WriteLine("Initializing Graphics...");
             try {
                 Settings = JsonUtilities.LoadJson<GraphicsSettings>("GraphicsSettings.json");
             }

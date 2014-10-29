@@ -9,6 +9,7 @@ namespace ProjectBlack.Utilities
 {
     public class LibRocketRenderInterface: LibRocketNet.RenderInterface
     {
+        public bool UseVbo = true;
         class Geometry : IDisposable
         {
             public uint VertexID, IndexID;
@@ -16,7 +17,7 @@ namespace ProjectBlack.Utilities
             public SFML.Graphics.Texture Texture;
 
             ~Geometry() {
-                Dispose();
+                //Dispose();
             }
 
             public void Dispose() {
@@ -39,25 +40,29 @@ namespace ProjectBlack.Utilities
             this.RenderTexture = RenderTexture;
         }
 
-
         public unsafe override IntPtr CompileGeometry(LibRocketNet.Vertex* vertices, int num_vertices, int* indices, int num_indices, IntPtr texture)
         {
-            var geom = new Geometry();
-            GL.GenBuffers(1, out geom.VertexID);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, geom.VertexID);
-            GL.BufferData(BufferTarget.ArrayBuffer, new IntPtr(sizeof(LibRocketNet.Vertex) * num_vertices), new IntPtr(vertices), BufferUsageHint.StaticDraw);
+            if (UseVbo)
+            {
+                var geom = new Geometry();
+                
+                GL.GenBuffers(1, out geom.VertexID);
+                GL.BindBuffer(BufferTarget.ArrayBuffer, geom.VertexID);
+                GL.BufferData(BufferTarget.ArrayBuffer, new IntPtr(sizeof(LibRocketNet.Vertex) * num_vertices), new IntPtr(vertices), BufferUsageHint.StaticDraw);
 
-            GL.GenBuffers(1, out geom.IndexID);
-            GL.BindBuffer(BufferTarget.ElementArrayBuffer, geom.VertexID);
-            GL.BufferData(BufferTarget.ElementArrayBuffer, new IntPtr(sizeof(int)), new IntPtr(indices), BufferUsageHint.StaticDraw);
+                GL.GenBuffers(1, out geom.IndexID);
+                GL.BindBuffer(BufferTarget.ElementArrayBuffer, geom.VertexID);
+                GL.BufferData(BufferTarget.ElementArrayBuffer, new IntPtr(sizeof(int)), new IntPtr(indices), BufferUsageHint.StaticDraw);
 
-            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-            geom.Texture = Textures[texture];
+                GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+                if (texture != IntPtr.Zero) geom.Texture = Textures[texture];
 
-            var ptr=new IntPtr(geom.GetHashCode());
-            Geometries[ptr] = geom;
-
-            return ptr;
+                var ptr = new IntPtr(geom.GetHashCode());
+                Geometries[ptr] = geom;
+                return ptr;
+            }
+            else return IntPtr.Zero;
+            
         }
 
         public override void EnableScissorRegion(bool enable)
@@ -70,6 +75,7 @@ namespace ProjectBlack.Utilities
 
         public unsafe override bool GenerateTexture(ref IntPtr texture_handle, byte* source, LibRocketNet.Vector2i dimensions)
         {
+            
             byte[] arr = new byte[sizeof(SFML.Graphics.Color) * dimensions.X * dimensions.Y];
             
             System.Runtime.InteropServices.Marshal.Copy(new IntPtr(source), arr, 0, arr.Length);
@@ -106,9 +112,12 @@ namespace ProjectBlack.Utilities
 
         public override void ReleaseCompiledGeometry(IntPtr geometry)
         {
-            var geom = Geometries[geometry];
-            geom.Dispose();
-            Geometries.Remove(geometry);
+            if (UseVbo)
+            {
+                var geom = Geometries[geometry];
+                geom.Dispose();
+                Geometries.Remove(geometry);
+            }
         }
 
         public override void ReleaseTexture(IntPtr texture)
@@ -118,72 +127,89 @@ namespace ProjectBlack.Utilities
 
         public unsafe override void RenderCompiledGeometry(IntPtr geometry, LibRocketNet.Vector2f translation)
         {
-            var geom = Geometries[geometry];
-            RenderTexture.SetActive(true);
-            RenderTexture.PushGLStates();
-            
-            GL.PushMatrix();
-            GL.Translate(translation.X, translation.Y, 0);
-            GL.Enable(EnableCap.Blend);
-            GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+            if (UseVbo)
+            {
+                var geom = Geometries[geometry];
+                
+                
 
-            GL.Enable(EnableCap.ColorArray);
-            GL.Enable(EnableCap.TextureCoordArray);
-            GL.Enable(EnableCap.VertexArray);
+                GL.PushMatrix();
+                GL.Translate(translation.X, translation.Y, 0);
+                GL.Enable(EnableCap.Blend);
+                GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 
-            var texture = geom.Texture;
-            SFML.Graphics.Texture.Bind(texture);
+                GL.Enable(EnableCap.ColorArray);
+                GL.Enable(EnableCap.TextureCoordArray);
+                GL.Enable(EnableCap.VertexArray);
 
-            GL.BindBuffer(BufferTarget.ArrayBuffer, geom.VertexID);
-            GL.VertexPointer(2, VertexPointerType.Float, sizeof(LibRocketNet.Vertex), 0);
-            GL.ColorPointer(4, ColorPointerType.UnsignedByte, sizeof(LibRocketNet.Vertex), sizeof(LibRocketNet.Vector2f));
-            GL.VertexPointer(2, VertexPointerType.Float, sizeof(LibRocketNet.Vertex), 0);
+                var texture = geom.Texture;
+                SFML.Graphics.Texture.Bind(texture);
 
-            GL.BindBuffer(BufferTarget.ElementArrayBuffer, geom.IndexID);
-            GL.DrawElements(BeginMode.Triangles, geom.NumVertices, DrawElementsType.UnsignedInt, 0);
+                GL.BindBuffer(BufferTarget.ArrayBuffer, geom.VertexID);
+                GL.VertexPointer(2, VertexPointerType.Float, sizeof(LibRocketNet.Vertex), 0);
+                GL.ColorPointer(4, ColorPointerType.UnsignedByte, sizeof(LibRocketNet.Vertex), sizeof(LibRocketNet.Vector2f));
 
-            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-            GL.Disable(EnableCap.ColorArray);
-            GL.Disable(EnableCap.TextureCoordArray);
-            GL.Disable(EnableCap.VertexArray);
+                GL.BindBuffer(BufferTarget.ElementArrayBuffer, geom.IndexID);
+                GL.DrawElements(BeginMode.Triangles, geom.NumVertices, DrawElementsType.UnsignedInt, 0);
 
-            GL.PopMatrix();
+                GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+                GL.Disable(EnableCap.ColorArray);
+                GL.Disable(EnableCap.TextureCoordArray);
+                GL.Disable(EnableCap.VertexArray);
 
-            RenderTexture.PopGLStates();
+                GL.PopMatrix();
+
+                RenderTexture.PopGLStates();
+            }
         }
 
         public unsafe override void RenderGeometry(LibRocketNet.Vertex* vertices, int num_vertices, int* indices, int num_indices, IntPtr texture, LibRocketNet.Vector2f translation)
         {
-            RenderTexture.SetActive(true);
-            RenderTexture.PushGLStates();
+            
+            
             GL.PushMatrix();
             GL.Translate(translation.X,translation.Y,0);
             GL.EnableClientState(ArrayCap.ColorArray);
 
-            GL.VertexPointer(2, VertexPointerType.Float, sizeof(LibRocketNet.Vertex), 0);
-            GL.ColorPointer(4, ColorPointerType.UnsignedByte, sizeof(LibRocketNet.Vertex), sizeof(LibRocketNet.Vector2f));
-            GL.VertexPointer(2, VertexPointerType.Float, sizeof(LibRocketNet.Vertex), 0);
+            GL.Enable(EnableCap.Blend);
+            GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+
+            GL.Enable(EnableCap.ColorArray);
+            GL.Enable(EnableCap.VertexArray);
+
+            GL.VertexPointer(2, VertexPointerType.Float, sizeof(LibRocketNet.Vertex), new IntPtr(vertices));
+            GL.ColorPointer(4, ColorPointerType.UnsignedByte, sizeof(LibRocketNet.Vertex), new IntPtr(vertices) + sizeof(float)*2);
+            //GL.VertexPointer(2, VertexPointerType.Float, sizeof(LibRocketNet.Vertex), 0);
 
             if (texture != IntPtr.Zero)
             {
                 // bind texture
                 var tex = Textures[texture];
                 SFML.Graphics.Texture.Bind(tex);
+                GL.Enable(EnableCap.TextureCoordArray);
                 GL.Enable(EnableCap.Texture2D);
-                GL.TexCoordPointer(2, TexCoordPointerType.Float, sizeof(LibRocketNet.Vertex), sizeof(LibRocketNet.Vector2f) + sizeof(LibRocketNet.Color));
+                GL.TexCoordPointer(2, TexCoordPointerType.Float, sizeof(LibRocketNet.Vertex), new IntPtr(vertices) + sizeof(LibRocketNet.Vector2f) + sizeof(LibRocketNet.Color));
             }
             else
             {
                 GL.Disable(EnableCap.Texture2D);
-                GL.DisableClientState(ArrayCap.ColorArray);
+                GL.Disable(EnableCap.TextureCoordArray);
+                
             }
             GL.DrawElements(PrimitiveType.Triangles, num_indices, DrawElementsType.UnsignedInt, new IntPtr(indices));
+
+            GL.Disable(EnableCap.ColorArray);
+            GL.Disable(EnableCap.TextureCoordArray);
+            GL.Disable(EnableCap.VertexArray);
+            GL.DisableClientState(ArrayCap.ColorArray);
+
             GL.PopMatrix();
-            RenderTexture.PopGLStates();
+            
         }
 
 
         public override void SetScissorRegion(int x, int y, int width, int height) {
+            
             GL.Scissor(x, (int) RenderTexture.Size.Y - (y + height), width, height);
         }
     }
