@@ -48,9 +48,15 @@ namespace ProjectBlack.Utilities
         }
 
 
-        public bool Run()
+        public bool Run(TimeSpan timestep)
         {
+            if (Routine.Current is TimeSpan) DelayTimer = (TimeSpan)Routine.Current;
             Status = CoroutineStatus.Playing;
+            if (DelayTimer > TimeSpan.Zero)
+            {
+                DelayTimer -= timestep;
+                return true;
+            }
             return Routine.MoveNext();
         }
     }

@@ -77,6 +77,8 @@
     <Compile Include="Buildings\BuildingComponent.cs" />
     <Compile Include="CharacterComponent.cs" />
     <Compile Include="Component.cs" />
+    <Compile Include="Components\DrawableRendererComponent.cs" />
+    <Compile Include="Components\RendererComponent.cs" />
     <Compile Include="Mechanics\HeatComponent.cs" />
     <Compile Include="Physics\ColliderComponent.cs" />
     <Compile Include="Physics\RigidBodyComponent.cs" />
@@ -100,11 +102,12 @@
     <Compile Include="TileMapComponent.cs" />
     <Compile Include="TileMapRendererComponent.cs" />
     <Compile Include="TileType.cs" />
-    <Compile Include="TransformComponent.cs" />
+    <Compile Include="Physics\TransformComponent.cs" />
     <Compile Include="UI.cs" />
     <Compile Include="Utilities\AnimatedSprite.cs" />
     <Compile Include="Utilities\CircularEnumerator.cs" />
     <Compile Include="Utilities\CircularList.cs" />
+    <Compile Include="Utilities\CoroutineManager.cs" />
     <Compile Include="Utilities\FloatStat.cs" />
     <Compile Include="Utilities\LibRocketRenderInterface.cs" />
     <Compile Include="Utilities\LibRocketSystemInterface.cs" />

@@ -18,14 +18,16 @@ namespace ProjectBlack
 
     public static class Graphics {
 
-        
+        public const int LayerCount = 10;
+        public const int DefaultCount = 5;
         public static List<Texture> Textures = new List<Texture>();
         public static List<Sprite> Sprites = new List<Sprite>();
         public static RenderWindow RenderWindow;
         public static VertexArray Vertices = new VertexArray(PrimitiveType.Quads);
         public static GraphicsSettings Settings;
 
-
+        public static List<LinkedList<RendererComponent>> Layers = new List<LinkedList<RendererComponent>>();
+        private static Color BackgroundColor = Color.Black;
 
         public static void RenderMap()
         {
@@ -44,6 +46,10 @@ namespace ProjectBlack
 
             JsonUtilities.WriteJson(Settings, "GraphicsSettings.json");
 
+            for (int i = 0; i < LayerCount; i++) {
+                Layers.Add(new LinkedList<RendererComponent>());
+            }
+
             var mode = new SFML.Window.VideoMode(Settings.ScreenWidth, Settings.ScreenHeight, 32);
             
             RenderWindow = new RenderWindow(mode, "project/Black",
@@ -60,9 +66,18 @@ namespace ProjectBlack
 
         internal static void Render()
         {
+            RenderWindow.Clear(BackgroundColor);
+            foreach (var layer in Layers) {
+                foreach (var renderable in layer)
+                    renderable.Render();
+            }
+            
             RenderWindow.Display();
         }
 
-
+        public static void AddRenderComponent(RendererComponent renderComponent, int layer = DefaultCount)
+        {
+            renderComponent.RenderNode = Layers[layer].AddLast(renderComponent);
+        }
     }
 }

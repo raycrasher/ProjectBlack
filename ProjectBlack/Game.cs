@@ -24,11 +24,7 @@ namespace ProjectBlack
         }
 
         public static Coroutine StartCoroutine(IEnumerable routine) {
-            var r = new Coroutine(routine);
-            Coroutines.AddLast(r);
-            r.Resume();
-            return r;
-            
+            return Coroutines.StartCoroutine(routine);
         }
 
         static void Main(string[] args) {
@@ -45,7 +41,6 @@ namespace ProjectBlack
 
             DeltaTime = TimeSpan.FromSeconds(1f / Graphics.Settings.FramerateLimit);
             while (!_exitGame) {
-                Graphics.RenderWindow.Clear(SFML.Graphics.Color.Black);
 
                 HandleInput();
                 RunCoroutines();
@@ -56,33 +51,7 @@ namespace ProjectBlack
 
         private static void RunCoroutines()
         {
-            LinkedListNode<Coroutine> node = Coroutines.First;
-            while (node != null)
-            {
-                var thisNode = node;
-                node = node.Next;
-
-                if (thisNode.Value.Status == CoroutineStatus.Stopped) {
-                    Coroutines.Remove(thisNode);
-                    continue;
-                }
-                else if (thisNode.Value.Status == CoroutineStatus.Paused)
-                {
-                    continue;
-                }
-                
-
-                if (thisNode.Value.DelayTimer > TimeSpan.Zero)
-                {
-                    thisNode.Value.DelayTimer -= DeltaTime;
-                    continue;
-                }
- 
-                if (!thisNode.Value.Run())
-                {
-                    Coroutines.Remove(thisNode);
-                }
-            }
+            Coroutines.RunCoroutines(DeltaTime);
         }
 
         private static void HandleInput()
@@ -95,7 +64,7 @@ namespace ProjectBlack
         }
 
         private static bool _exitGame = false;
-        private static LinkedList<Coroutine> Coroutines = new LinkedList<Coroutine>();
+        private static CoroutineManager Coroutines = new CoroutineManager();
         public static float PhysicsScale = 0.01f;
         public static SFML.Graphics.RenderWindow RenderWindow { get { return Graphics.RenderWindow; } }
 

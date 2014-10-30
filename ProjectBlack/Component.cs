@@ -19,6 +19,7 @@ namespace ProjectBlack
 
         public T GetComponent<T>() where T : Component
         {
+            if (GameObject == null) return default(T);
             return GameObject.Components.OfType<T>().FirstOrDefault();
         }
     }

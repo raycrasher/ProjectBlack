@@ -9,7 +9,8 @@ namespace ProjectBlack.Utilities
 {
     public class LibRocketRenderInterface: LibRocketNet.RenderInterface
     {
-        public bool UseVbo = true;
+        public readonly bool UseVbo;
+
         class Geometry : IDisposable
         {
             public uint VertexID, IndexID;
@@ -35,8 +36,9 @@ namespace ProjectBlack.Utilities
         SFML.Graphics.View ScissorView, DefaultView;
 
 
-        public LibRocketRenderInterface(SFML.Graphics.RenderTexture RenderTexture)
+        public LibRocketRenderInterface(SFML.Graphics.RenderTexture RenderTexture, bool useVBO=false)
         {
+            UseVbo = useVBO;
             this.RenderTexture = RenderTexture;
         }
 
@@ -55,6 +57,7 @@ namespace ProjectBlack.Utilities
                 GL.BufferData(BufferTarget.ElementArrayBuffer, new IntPtr(sizeof(int)), new IntPtr(indices), BufferUsageHint.StaticDraw);
 
                 GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+                GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0);
                 if (texture != IntPtr.Zero) geom.Texture = Textures[texture];
 
                 var ptr = new IntPtr(geom.GetHashCode());
@@ -142,15 +145,24 @@ namespace ProjectBlack.Utilities
                 GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 
                 GL.Enable(EnableCap.ColorArray);
-                GL.Enable(EnableCap.TextureCoordArray);
                 GL.Enable(EnableCap.VertexArray);
-
-                var texture = geom.Texture;
-                SFML.Graphics.Texture.Bind(texture);
 
                 GL.BindBuffer(BufferTarget.ArrayBuffer, geom.VertexID);
                 GL.VertexPointer(2, VertexPointerType.Float, sizeof(LibRocketNet.Vertex), 0);
                 GL.ColorPointer(4, ColorPointerType.UnsignedByte, sizeof(LibRocketNet.Vertex), sizeof(LibRocketNet.Vector2f));
+
+                var texture = geom.Texture;
+                if (texture != null)
+                {
+                    SFML.Graphics.Texture.Bind(texture);
+                    GL.Enable(EnableCap.TextureCoordArray);
+                    GL.Enable(EnableCap.Texture2D);
+                    GL.TexCoordPointer(2, TexCoordPointerType.Float, sizeof(LibRocketNet.Vertex), sizeof(LibRocketNet.Vector2f) + sizeof(LibRocketNet.Color));
+                }
+                else {
+                    GL.Disable(EnableCap.Texture2D);
+                    GL.Disable(EnableCap.TextureCoordArray);
+                }
 
                 GL.BindBuffer(BufferTarget.ElementArrayBuffer, geom.IndexID);
                 GL.DrawElements(BeginMode.Triangles, geom.NumVertices, DrawElementsType.UnsignedInt, 0);
@@ -159,10 +171,11 @@ namespace ProjectBlack.Utilities
                 GL.Disable(EnableCap.ColorArray);
                 GL.Disable(EnableCap.TextureCoordArray);
                 GL.Disable(EnableCap.VertexArray);
+                GL.Disable(EnableCap.TextureCoordArray);
+                GL.Disable(EnableCap.Texture2D);
 
                 GL.PopMatrix();
 
-                RenderTexture.PopGLStates();
             }
         }
 

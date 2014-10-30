@@ -18,6 +18,7 @@ namespace ProjectBlack
         static SFML.Graphics.RenderTexture RenderTexture;
         static Utilities.LibRocketRenderInterface RenderInterface;
         static Utilities.LibRocketSystemInterface SystemInterface;
+        private static SFML.Graphics.Sprite TextureSprite;
 
         public static void Initialize() {
             Console.WriteLine("Initializing UI...");
@@ -25,8 +26,6 @@ namespace ProjectBlack
 
             RenderTexture = new SFML.Graphics.RenderTexture(Graphics.Settings.ScreenWidth, Graphics.Settings.ScreenHeight);
             RenderInterface = new Utilities.LibRocketRenderInterface(RenderTexture);
-
-            RenderInterface.UseVbo = false;
 
             SystemInterface = new Utilities.LibRocketSystemInterface();
             LibRocketNet.Core.RenderInterface = RenderInterface;
@@ -38,12 +37,10 @@ namespace ProjectBlack
             Game.RenderWindow.KeyReleased += KeyUpHandler;
             Game.RenderWindow.MouseButtonPressed +=
                 (o, e) => MainContext.ProcessMouseButtonDown((int)e.Button, GetKeyModifiers());
-
             Game.RenderWindow.MouseButtonReleased +=
                 (o, e) => MainContext.ProcessMouseButtonUp((int)e.Button, GetKeyModifiers());
 
             Game.RenderWindow.MouseWheelMoved += (o, e) => MainContext.ProcessMouseWheel(-e.Delta, GetKeyModifiers());
-
             Game.RenderWindow.MouseMoved += (o, e) => MainContext.ProcessMouseMove(e.X, e.Y, GetKeyModifiers());
 
 
@@ -54,6 +51,9 @@ namespace ProjectBlack
             LoadFonts();
 
             Game.StartCoroutine(UpdateAndRender());
+            var renderComponent = new RendererComponent();
+            renderComponent.OnAfterRender += RenderUI;
+            Graphics.AddRenderComponent(renderComponent);
         }
 
         private static void LoadFonts()
@@ -62,7 +62,7 @@ namespace ProjectBlack
             foreach(var fontfile in System.IO.Directory.GetFiles("Data/Common/Fonts","*.ttf")){
                 Fonts.Add(new SFML.Graphics.Font(fontfile));
                 LibRocketNet.Core.LoadFontFace(fontfile);
-                Console.WriteLine("Loading font \"{0}\"", fontfile);
+                //Console.WriteLine("Loading font \"{0}\"", fontfile);
             }
             
         }
@@ -83,32 +83,30 @@ namespace ProjectBlack
 
         private static IEnumerable UpdateAndRender()
         {
-            var texSprite = new SFML.Graphics.Sprite(RenderTexture.Texture);
+            TextureSprite = new SFML.Graphics.Sprite(RenderTexture.Texture);
+            TextureSprite.Texture = RenderTexture.Texture;
             RenderTexture.SetActive(true);
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
             GL.Ortho(0, RenderTexture.Size.X, RenderTexture.Size.Y, 0, -1, 1);
             GL.Viewport(0, 0, (int)RenderTexture.Size.X, (int)RenderTexture.Size.Y);
             while (true) {
-                RenderTexture.Clear(new SFML.Graphics.Color(0,0,0,0));
                 MainContext.Update();
-                RenderUI();
-                RenderTexture.Display();
-                texSprite.Texture = RenderTexture.Texture;
-                Graphics.RenderWindow.SetActive(true);
-                Graphics.RenderWindow.Draw(texSprite);
-
                 yield return null;
             }
             
         }
 
-        private static void RenderUI()
+        private static void RenderUI(RendererComponent c)
         {
+            RenderTexture.Clear(new SFML.Graphics.Color(0, 0, 0, 0));
             RenderTexture.SetActive(true);
             RenderTexture.PushGLStates();
             MainContext.Render();
             RenderTexture.PopGLStates();
+            RenderTexture.Display();            
+            Graphics.RenderWindow.SetActive(true);
+            Graphics.RenderWindow.Draw(TextureSprite);
         }
 
         private static KeyModifier GetKeyModifiers()
