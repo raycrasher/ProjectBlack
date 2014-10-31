@@ -33,7 +33,6 @@ namespace ProjectBlack.Utilities
         Dictionary<IntPtr, Geometry> Geometries = new Dictionary<IntPtr, Geometry>();
         Dictionary<IntPtr, SFML.Graphics.Texture> Textures = new Dictionary<IntPtr, SFML.Graphics.Texture>();
         SFML.Graphics.RenderTexture RenderTexture;
-        SFML.Graphics.View ScissorView, DefaultView;
 
 
         public LibRocketRenderInterface(SFML.Graphics.RenderTexture RenderTexture, bool useVBO=false)

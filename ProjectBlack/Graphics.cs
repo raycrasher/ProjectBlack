@@ -20,8 +20,8 @@ namespace ProjectBlack
 
         public const int LayerCount = 10;
         public const int DefaultCount = 5;
-        public static List<Texture> Textures = new List<Texture>();
-        public static List<Sprite> Sprites = new List<Sprite>();
+        public static Dictionary<String, Texture> Textures = new Dictionary<string, Texture>();
+        public static Dictionary<String, Sprite> Sprites = new Dictionary<string, Sprite>();
         public static RenderWindow RenderWindow;
         public static VertexArray Vertices = new VertexArray(PrimitiveType.Quads);
         public static GraphicsSettings Settings;

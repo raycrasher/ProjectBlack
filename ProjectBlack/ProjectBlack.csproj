@@ -77,6 +77,8 @@
     <Compile Include="Buildings\BuildingComponent.cs" />
     <Compile Include="CharacterComponent.cs" />
     <Compile Include="Component.cs" />
+    <Compile Include="Components\CharacterComponent.cs" />
+    <Compile Include="Components\CharacterSpriteComponent.cs" />
     <Compile Include="Components\DrawableRendererComponent.cs" />
     <Compile Include="Components\RendererComponent.cs" />
     <Compile Include="Mechanics\HeatComponent.cs" />
@@ -105,6 +107,7 @@
     <Compile Include="Physics\TransformComponent.cs" />
     <Compile Include="UI.cs" />
     <Compile Include="Utilities\AnimatedSprite.cs" />
+    <Compile Include="Utilities\CharacterSpriteData.cs" />
     <Compile Include="Utilities\CircularEnumerator.cs" />
     <Compile Include="Utilities\CircularList.cs" />
     <Compile Include="Utilities\CoroutineManager.cs" />

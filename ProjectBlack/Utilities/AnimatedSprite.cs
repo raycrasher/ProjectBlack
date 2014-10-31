@@ -17,7 +17,7 @@ namespace SFML.Utils
         /// <summary>
         /// Create new SpriteAnimated.
         /// </summary>
-        /// <param name="Text">Texture to use in your sprite.</param>
+        /// <param name="texture">Texture to use in your sprite.</param>
         /// <param name="FrameWidth">Width of one frame in pixels.</param>
         /// <param name="FrameHeight">Height of one frame in pixels.</param>
         /// <param name="FramesPerSecond">Your sprite's FPS.</param>
@@ -27,8 +27,8 @@ namespace SFML.Utils
         /// <param name="LastFrame">Last frame of animation sequence.</param>
         /// <param name="IsAnimated">Should sequence be played immediately after creation? If false, first frame will be paused.</param>
         /// <param name="IsLooped">Should sequence be looped? If false, animation will stop after one full sequence.</param>
-        public AnimatedSprite(Texture Text, int FrameWidth, int FrameHeight, int FramesPerSecond, RenderTarget RTarget, RenderStates RStates, int FirstFrame = 0, int LastFrame = 0, bool IsAnimated = false, bool IsLooped = true)
-            : base(Text)
+        public AnimatedSprite(Texture texture, int FrameWidth, int FrameHeight, int FramesPerSecond, RenderTarget RTarget, RenderStates RStates, int FirstFrame = 0, int LastFrame = 0, bool IsAnimated = false, bool IsLooped = true)
+            : base(texture)
         {
             _renderTarget = RTarget;
             _renderStates = RStates;

@@ -1,4 +1,35 @@
-﻿Character Stats:
+﻿Controls:
+
+WSAD - move up, down, left, right
+left-click: melee attack
+right-click: ranged attack
+Q - Swap weapon sets
+E - Interact
+R - Reload
+G - Throw selected items (in order of selection)
+Shift-G - Cycle between thrown item types
+Space - Use movement ability
+1-9 - Hotkeys
+Shift - Sprint
+Tab - Status screen
+T - Talk (brings up non-modal speech popup menu - for NPCs)
+M - Map
+
+C or F1 - Character screen
+I or F2 - Inventory screen
+B or F3 - Build structure
+K or F4 - Craft item
+V or F5 - Vehicle screen (if in vehicle)
+J or F6 - Journal
+L or F7 - Building
+T or F8 - Faction
+
+~ - Debug console
+
+
+
+------------------------------------------------------------------------------------------------------------------------------
+Character Stats:
 	Range is 1-100. Normal value is 40-60.
 
 	Strength
@@ -16,8 +47,25 @@
 	Luck
 		Affects critical rate, critical damage, and many other things.
 
+------------------------------------------------------------------------------------------------------------------------------
+Notes
 
-------------------------
+------------------------------------------------------------------------------------------------------------------------------
+
+Building:
+	Barricade
+	Existing Window > Boarded Up Window
+	Existing Door > Boarded Up Door
+	Wooden Half-Wall > Wooden Wall
+
+	Forge
+	Workbench
+	Gunsmith's Table
+	
+
+
+
+------------------------------------------------------------------------------------------------------------------------------
 Enemies
 
 
@@ -44,7 +92,7 @@ walker
 	elite (master)
 		equipped with great armor and equipment
 		uses weapon / items
----------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------
 brute
 	attacks
 		swipe
@@ -65,7 +113,7 @@ brute
 		immune to weak attacks
 	rewards
 		
----------------------------------------------------------------				
+------------------------------------------------------------------------------------------------------------------------------				
 runner
 	attacks
 		bite
@@ -84,7 +132,7 @@ runner
 		does not stumble or slow down in rough terrain
 		more speed
 		armored clothing
----------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------
 hunter
 	attacks
 		bite
@@ -137,7 +185,7 @@ shrieker
 		bite
 	strengths
 		shriek attracts zombies
-	elite (sonic shrieker)
+	elite (witch)
 		shriek deals damage
 ---------------------------------------------------------------
 bomb
@@ -173,6 +221,10 @@ smoker
 	elite (gas smoker)
 		smoke ignites when exposed to fire
 ---------------------------------------------------------------
+flyer
+	angel
+
+---------------------------------------------------------------
 grabber
 	attack
 		grab (short range, with tongue)
@@ -204,6 +256,14 @@ succubus
 alien (grey)
 ---------------------------------------------------------------
 alien (squid)
+	elite: eldritch horror
 ---------------------------------------------------------------
 alien (wisp)
-
+---------------------------------------------------------------
+robot scout drone
+---------------------------------------------------------------
+robot attack drone
+---------------------------------------------------------------
+robot walker drone
+---------------------------------------------------------------
+robot 
