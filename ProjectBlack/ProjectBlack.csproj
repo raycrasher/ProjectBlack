@@ -51,7 +51,7 @@
     </Reference>
     <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\OpenTK1.1\Binaries\OpenTK\Release\OpenTK.dll</HintPath>
+      <HintPath>.\OpenTK.dll</HintPath>
     </Reference>
     <Reference Include="sfmlnet-audio-2, Version=2.1.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -81,9 +81,11 @@
     <Compile Include="Components\CharacterSpriteComponent.cs" />
     <Compile Include="Components\DrawableRendererComponent.cs" />
     <Compile Include="Components\RendererComponent.cs" />
+    <Compile Include="GraphicsLayer.cs" />
     <Compile Include="Mechanics\HeatComponent.cs" />
     <Compile Include="Physics\ColliderComponent.cs" />
     <Compile Include="Physics\RigidBodyComponent.cs" />
+    <Compile Include="Scene.cs" />
     <Compile Include="Scenes\MainMenuScene.cs" />
     <Compile Include="Terrain\ArmorPlatingComponent.cs" />
     <Compile Include="Terrain\BatteryComponent.cs" />

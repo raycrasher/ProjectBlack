@@ -10,6 +10,11 @@ namespace ProjectBlack
     {
         public LinkedListNode<RendererComponent> RenderNode;
 
+        public override void Start()
+        {
+            base.Start();
+        }
+
         protected virtual void Draw() { }
 
         public void Render() {
