@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectBlack.Inventory
+namespace ProjectBlack.Combat
 {
     class RangedWeaponComponent
     {

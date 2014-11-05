@@ -9,9 +9,15 @@ namespace ProjectBlack
     public class Component
     {
         public GameObject GameObject { get; set; }
+        
+        public virtual bool IsEnabled { get; set; }
 
         public virtual void Start(){}
         public virtual void Stop(){}
+
+        public Component(bool enable=true) {
+            IsEnabled = enable;
+        }
 
         public IEnumerable<T> GetComponents<T>() where T: Component {
             return GameObject.Components.OfType<T>();

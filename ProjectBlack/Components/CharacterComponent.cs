@@ -11,6 +11,8 @@ namespace ProjectBlack.Components
     {
         public CharacterSpriteComponent Sprite;
 
+        public Creatures.CreatureComponent CreatureComponent;
+
         public override void Start()
         {
             Sprite = GetComponent<CharacterSpriteComponent>();

@@ -10,14 +10,10 @@ namespace ProjectBlack
     {
         public LinkedListNode<RendererComponent> RenderNode;
 
-        public override void Start()
-        {
-            base.Start();
-        }
-
         protected virtual void Draw() { }
 
         public void Render() {
+            if (!IsEnabled) return;
             if (OnBeforeRender != null) OnBeforeRender(this);
             Draw();
             if (OnAfterRender != null) OnAfterRender(this);

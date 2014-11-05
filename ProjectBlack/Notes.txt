@@ -2,7 +2,7 @@
 
 WSAD - move up, down, left, right
 left-click: melee attack
-right-click: ranged attack
+right-click: ranged attack. Hold to aim.
 Q - Swap weapon sets
 E - Interact
 R - Reload
@@ -36,6 +36,8 @@ Character Stats:
 		Affects melee damage, carry weight, construction speed (40%)
 	Agility
 		Affects move speed, melee attack speed (60%).
+	Constitution
+		Affects health,  health regen, recovery from status effects
 	Dexterity
 		Affects accuracy, melee attack speed (40%), ranged attack speed (50%), reload speed, fabrication speed, construction speed (60%)
 	Wisdom

@@ -77,16 +77,24 @@
   <ItemGroup>
     <Compile Include="Buildings\BuildingComponent.cs" />
     <Compile Include="CharacterComponent.cs" />
+    <Compile Include="Combat\AttackMode.cs" />
+    <Compile Include="Combat\DamageProfile.cs" />
+    <Compile Include="Combat\HealthComponent.cs" />
     <Compile Include="Component.cs" />
     <Compile Include="Components\CharacterComponent.cs" />
     <Compile Include="Components\CharacterSpriteComponent.cs" />
     <Compile Include="Components\DrawableRendererComponent.cs" />
     <Compile Include="Components\RendererComponent.cs" />
+    <Compile Include="Creatures\BodyPart.cs" />
+    <Compile Include="Creatures\CreatureComponent.cs" />
+    <Compile Include="Creatures\CreatureFactory.cs" />
     <Compile Include="GraphicsLayer.cs" />
+    <Compile Include="Creatures\CreatureWeaponComponent.cs" />
+    <Compile Include="Combat\IDamageable.cs" />
+    <Compile Include="Combat\IWeapon.cs" />
     <Compile Include="Mechanics\HeatComponent.cs" />
     <Compile Include="Physics\ColliderComponent.cs" />
     <Compile Include="Physics\RigidBodyComponent.cs" />
-    <Compile Include="Scene.cs" />
     <Compile Include="Scenes\MainMenuScene.cs" />
     <Compile Include="Terrain\ArmorPlatingComponent.cs" />
     <Compile Include="Terrain\BatteryComponent.cs" />
@@ -95,8 +103,8 @@
     <Compile Include="Graphics.cs" />
     <Compile Include="Inventory\ArmorComponent.cs" />
     <Compile Include="Inventory\ItemComponent.cs" />
-    <Compile Include="Inventory\MeleeWeaponComponent.cs" />
-    <Compile Include="Inventory\RangedWeaponComponent.cs" />
+    <Compile Include="Combat\MeleeWeaponComponent.cs" />
+    <Compile Include="Combat\RangedWeaponComponent.cs" />
     <Compile Include="PlayerComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TerrainComponent.cs" />

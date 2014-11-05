@@ -8,9 +8,22 @@ namespace ProjectBlack
 {
     public class GameObject
     {
-        public GameObject() { }
+        public GameObject() {
+            Components = new HashSet<Component>();
+            Children = new HashSet<GameObject>();
+        }
 
-        public GameObject(params Component[] components) {
+        public GameObject(params Component[] components): this() {
+            foreach (var c in components) Components.Add(c);
+        }
+
+        public GameObject(string name): this()
+        {
+            Name = name;
+        }
+
+        public GameObject(string name, params Component[] components): this(name) 
+        {
             foreach (var c in components) Components.Add(c);
         }
 
@@ -22,7 +35,9 @@ namespace ProjectBlack
             }
         }
 
-        public HashSet<Component> Components = new HashSet<Component>();
-        public LinkedListNode<GameObject> Node;
+        public HashSet<Component> Components { get; private set; }
+        public HashSet<GameObject> Children { get; private set; }
+        public LinkedListNode<GameObject> Node { get; set; }
+        public string Name { get; set; }
     }
 }
