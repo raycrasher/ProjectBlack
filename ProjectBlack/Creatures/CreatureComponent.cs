@@ -14,6 +14,13 @@ namespace ProjectBlack.Creatures
             BodyParts = new HashSet<BodyPartComponent>();
         }
 
+        public override void Start()
+        {
+            base.Start();
+
+            foreach (var bp in GetComponents<BodyPartComponent>())
+                BodyParts.Add(bp);
+        }
 
         public float Size { get; set; }
     }

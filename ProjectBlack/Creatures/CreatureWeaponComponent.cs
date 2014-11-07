@@ -10,7 +10,7 @@ namespace ProjectBlack.Creatures
     public class CreatureWeaponComponent : Component
     {
         public IWeapon LinkedWeapon;
-        public BodyPart BodyPart;
+        public BodyPartComponent BodyPart;
         public CreatureComponent Creature;
 
     }

@@ -85,7 +85,7 @@
     <Compile Include="Components\CharacterSpriteComponent.cs" />
     <Compile Include="Components\DrawableRendererComponent.cs" />
     <Compile Include="Components\RendererComponent.cs" />
-    <Compile Include="Creatures\BodyPart.cs" />
+    <Compile Include="Creatures\BodyPartComponent.cs" />
     <Compile Include="Creatures\CreatureComponent.cs" />
     <Compile Include="Creatures\CreatureFactory.cs" />
     <Compile Include="GraphicsLayer.cs" />

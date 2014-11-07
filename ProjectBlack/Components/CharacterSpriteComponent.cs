@@ -13,8 +13,6 @@ namespace ProjectBlack.Components
     {
         public CharacterSpriteData SpriteData;
 
-        private TimeSpan _delayToNextFrame;
-
         public CharacterSpriteComponent(CharacterSpriteData data) : base(Game.RenderWindow, null) {
             SpriteData = data;
         }
@@ -31,6 +29,11 @@ namespace ProjectBlack.Components
         }
 
         public void StopAnimation() { 
+        }
+
+        protected override void Draw()
+        {
+ 	         base.Draw();
         }
 
         public int CurrentFrame { get; set; }

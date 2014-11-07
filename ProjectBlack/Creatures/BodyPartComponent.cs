@@ -6,27 +6,6 @@ using System.Threading.Tasks;
 
 namespace ProjectBlack.Creatures
 {
-    public enum BodyPartPurpose { 
-        ThoughtCenter,
-        Breathing,
-        Sight,
-        Hearing,
-        Talking,
-        Eating,
-        Drinking,
-        Telepathy,
-        Smelling,
-        Grasping,
-        MeleeWeapon,
-        RangedWeapon,
-        Digestion,
-        Eating,
-        GroundMovement,
-        AtmosphericFlight,
-        SpaceFlight,
-        SpinalCord,
-        Tail,
-    }
 
     public class BodyPartComponent: ProjectBlack.Combat.HealthComponent
     {

@@ -8,11 +8,13 @@ namespace ProjectBlack.Creatures
 {
     public static class CreatureFactory
     {
-        public GameObject CreateHuman(string name) {
+        public static GameObject CreateHuman(string name) {
 
             var creature = new CreatureComponent();
-            var body = new BodyPartComponent("body", creature) { Size = 10 };
-            var head = new BodyPartComponent("head", creature, body, true) { Size = 50 };
+            
+
+            var body = new BodyPartComponent("body", creature) { Size = 10, IsEssential=true };
+            var head = new BodyPartComponent("head", creature, body, true) { Size = 50, IsEssential=true };
             var rightarm = new BodyPartComponent("right arm", creature, body, true) { Size = 20 };
             var leftarm = new BodyPartComponent("left arm", creature, body, true) { Size = 20 };
             var righthand = new BodyPartComponent("right hand", creature, rightarm, true) { Size = 5 };
@@ -22,20 +24,13 @@ namespace ProjectBlack.Creatures
             var rightfoot = new BodyPartComponent("right foot", creature, rightleg, true) { Size = 7.5f };
             var leftfoot = new BodyPartComponent("left foot", creature, leftleg, true) { Size = 7.5f };
 
-            creature.BodyParts.Add(body);
-            creature.BodyParts.Add(head);
-            creature.BodyParts.Add(rightarm);
-            creature.BodyParts.Add(leftarm);
-            creature.BodyParts.Add(righthand);
-            creature.BodyParts.Add(lefthand);
-            creature.BodyParts.Add(rightleg);
-            creature.BodyParts.Add(leftleg);
-            creature.BodyParts.Add(rightfoot);
-            creature.BodyParts.Add(leftfoot);
+            var human = new GameObject(name, creature,
+                body, head, rightarm, leftarm, righthand, lefthand, rightleg, leftleg, rightfoot, leftfoot
+                );
 
             creature.Size = creature.BodyParts.Sum(s => s.Size);
             
-            var human = new GameObject(name, creature);
+            
             return human;
         }
     }

@@ -18,7 +18,11 @@ namespace ProjectBlack
 
         public void AddGameObject(GameObject obj) {
             obj.Node = Objects.AddLast(obj);
-            foreach (var c in obj.Components) c.Start();
+            foreach (var c in obj.Components)
+            {
+                c.GameObject = obj;
+                c.Start();
+            }
         }
     }
 }
